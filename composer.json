@@ -1,0 +1,34 @@
+{
+    "name": "easywelfare/zeiss",
+    "description": "Easywelfare focus lens quality system over events",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Easy Welfare - Development Team",
+            "email": "dev@easywelfare.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Zeiss\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Zeiss\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^7.3",
+        "ext-mongodb": "*",
+        "recruiterphp/geezer": "^4.0",
+        "psr/log": "^1.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.4",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "phpstan/phpstan": "^0.11.19",
+        "phpstan/phpstan-phpunit": "^0.11.2"
+    }
+}
