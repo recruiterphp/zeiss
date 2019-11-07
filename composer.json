@@ -1,6 +1,6 @@
 {
     "name": "recruiterphp/zeiss",
-    "description": "Easywelfare focus lens quality system over events",
+    "description": "Open source PHP library for projecting domain events",
     "type": "library",
     "license": "MIT",
     "authors": [
