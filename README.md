@@ -1,2 +1,4 @@
-# zeiss
-Easywelfare focus lens quality system over events
+# Zeiss
+Open source PHP library for projecting domain events.
+
+Still WIP but already in production.
