@@ -2,6 +2,8 @@
 
 namespace Zeiss\MongoDB;
 
+use DateTimeImmutable;
+use MongoDB\BSON\UTCDateTime;
 use MongoDB\Collection;
 use Zeiss\Projection\Event;
 use Zeiss\Projection\EventNotFound;
@@ -12,6 +14,11 @@ class EventStore implements EventStoreInterface
 {
     /** @var Collection */
     private $events;
+
+    private const DATES = [
+        'receivedAt',
+        'emittedAt',
+    ];
 
     public function __construct(Collection $events)
     {
@@ -33,7 +40,7 @@ class EventStore implements EventStoreInterface
             return new EventNotFound($toOffset);
         }
 
-        return new Event($document);
+        return new Event($this->boxDates($document));
     }
 
     public function offset(): int
@@ -45,5 +52,17 @@ class EventStore implements EventStoreInterface
         assert(is_array($document));
 
         return (int) $document['__committed_offset__'];
+    }
+
+    private function boxDates(array $document): array
+    {
+        foreach (self::DATES as $key) {
+            $value = $document[$key] ?? null;
+            if ($value instanceof UTCDateTime) {
+                $document[$key] = DateTimeImmutable::createFromMutable($value->toDateTime());
+            }
+        }
+
+        return $document;
     }
 }

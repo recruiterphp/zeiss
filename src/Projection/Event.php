@@ -2,6 +2,8 @@
 
 namespace Zeiss\Projection;
 
+use DateTimeImmutable;
+
 class Event implements NextEvent
 {
     /** @var array */
@@ -25,6 +27,16 @@ class Event implements NextEvent
     public function fromCorrelationIds($key)
     {
         return $this->event['correlationIds'][$key] ?? null;
+    }
+
+    public function emittedAt(): DateTimeImmutable
+    {
+        return $this->event['emittedAt'];
+    }
+
+    public function receivedAt(): DateTimeImmutable
+    {
+        return $this->event['receivedAt'];
     }
 
     public function offset(): int
