@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Zeiss\Tests\Unit\Event;
-
 
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
