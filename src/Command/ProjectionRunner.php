@@ -2,7 +2,6 @@
 
 namespace Zeiss\Command;
 
-use Exception;
 use Psr\Log\LoggerInterface;
 use Recruiter\Geezer\Command\RobustCommand;
 use Recruiter\Geezer\Command\RobustCommandRunner;
@@ -12,6 +11,7 @@ use Recruiter\Geezer\Timing\ConstantPause;
 use Recruiter\Geezer\Timing\WaitStrategy;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
+use Throwable;
 use Zeiss\Projection\Projection;
 use Zeiss\Projection\Registry;
 use Zeiss\Projection\Runner;
@@ -129,7 +129,7 @@ class ProjectionRunner implements RobustCommand
     /**
      * @return bool true on successful shutdown, false otherwhise
      */
-    public function shutdown(?Exception $e = null): bool
+    public function shutdown(?Throwable $t = null): bool
     {
         return true;
     }
