@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zeiss\Projection;
 
 use MongoDB\Collection;
@@ -44,7 +46,7 @@ class Registry
         $this->offsets[$projectionName] = $offset;
         $this->registry->updateOne(
             ['name' => $projectionName],
-            ['$set' => ['offset' => $this->offsets[$projectionName]]]
+            ['$set' => ['offset' => $this->offsets[$projectionName]]],
         );
     }
 
@@ -63,7 +65,7 @@ class Registry
                 'background' => true,
                 'unique' => true,
                 'name' => 'name_1',
-            ]
+            ],
         );
     }
 }

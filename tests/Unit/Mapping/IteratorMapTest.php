@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Zeiss\Tests\Unit\Mapping;
 
-use Generator;
 use PHPUnit\Framework\TestCase;
 use Zeiss\Mapping\IteratorMap;
 
@@ -31,7 +30,7 @@ class IteratorMapTest extends TestCase
         $this->assertSame([2, 8, 43], $actual);
     }
 
-    private function iterator(): Generator
+    private function iterator(): \Generator
     {
         yield 1;
         yield 7;

@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zeiss\MongoDB;
 
-use DateTimeImmutable;
 use MongoDB\BSON\UTCDateTime;
 use MongoDB\Collection;
 use Zeiss\Projection\Event;
@@ -22,7 +23,7 @@ class EventStore implements EventStoreInterface
     }
 
     /**
-     * @return Event | EventNotFound
+     * @return Event|EventNotFound
      */
     public function fetchOneOfAfter(array $types, int $fromOffset, int $limit = 100000): NextEvent
     {
@@ -30,7 +31,7 @@ class EventStore implements EventStoreInterface
         $document = $this->events->findOne(
             ['offset' => ['$gt' => $fromOffset, '$lte' => $toOffset],
                 'type' => ['$in' => $types], ],
-            ['sort' => ['offset' => 1]]
+            ['sort' => ['offset' => 1]],
         );
         if (!$document || !is_array($document)) {
             return new EventNotFound($toOffset);
@@ -58,7 +59,7 @@ class EventStore implements EventStoreInterface
         foreach (self::DATES as $key) {
             $value = $document[$key] ?? null;
             if ($value instanceof UTCDateTime) {
-                $document[$key] = DateTimeImmutable::createFromMutable($value->toDateTime());
+                $document[$key] = \DateTimeImmutable::createFromMutable($value->toDateTime());
             }
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zeiss\Command;
 
 use Psr\Log\LoggerInterface;
@@ -11,7 +13,6 @@ use Recruiter\Geezer\Timing\ConstantPause;
 use Recruiter\Geezer\Timing\WaitStrategy;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
-use Throwable;
 use Zeiss\Projection\Projection;
 use Zeiss\Projection\Registry;
 use Zeiss\Projection\Runner;
@@ -25,14 +26,14 @@ class ProjectionRunner implements RobustCommand
     public static function forProjection(
         Projection $projection,
         Registry $registry,
-        LoggerInterface $logger
+        LoggerInterface $logger,
     ): RobustCommandRunner {
         return self::forProjectionWithStrategies(
             $projection,
             $registry,
             new Anarchy(),
             new ConstantPause(1000),
-            $logger
+            $logger,
         );
     }
 
@@ -41,16 +42,16 @@ class ProjectionRunner implements RobustCommand
         Registry $registry,
         LeadershipStrategy $leadershipStrategy,
         WaitStrategy $waitStrategy,
-        LoggerInterface $logger
+        LoggerInterface $logger,
     ): RobustCommandRunner {
         return new RobustCommandRunner(
             new self(
                 new Runner($projection, $registry),
                 $leadershipStrategy,
                 $waitStrategy,
-                $projection::name()
+                $projection::name(),
             ),
-            $logger
+            $logger,
         );
     }
 
@@ -68,7 +69,7 @@ class ProjectionRunner implements RobustCommand
     {
         return sprintf(
             'run-projection:%s',
-            $this->projectionName
+            $this->projectionName,
         );
     }
 
@@ -76,7 +77,7 @@ class ProjectionRunner implements RobustCommand
     {
         return sprintf(
             'Project events for %s',
-            $this->projectionName
+            $this->projectionName,
         );
     }
 
@@ -101,7 +102,7 @@ class ProjectionRunner implements RobustCommand
     /**
      * @return bool true on successful shutdown, false otherwhise
      */
-    public function shutdown(?Throwable $t = null): bool
+    public function shutdown(?\Throwable $t = null): bool
     {
         return true;
     }
