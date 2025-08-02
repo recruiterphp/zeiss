@@ -1,14 +1,35 @@
-FROM php:7.4-alpine
+FROM php:8.4-cli
 
-RUN apk add git autoconf build-base gcc
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libssl-dev \
+    libcurl4-openssl-dev \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN pecl install -f mongodb
-RUN docker-php-ext-install -j$(nproc) pcntl
-RUN docker-php-ext-enable mongodb
+# Install MongoDB extension
+RUN pecl install mongodb \
+    && docker-php-ext-enable mongodb \
+    && docker-php-ext-install -j$(nproc) pcntl
 
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&\
-    php composer-setup.php &&\
-    php -r "unlink('composer-setup.php');" && \
-    mv composer.phar /usr/local/bin/composer
+# Copy Composer from official image
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Set working directory
 WORKDIR /app
+
+# Copy composer files
+COPY composer.json composer.lock* ./
+
+# Install dependencies including dev dependencies for testing
+RUN composer install --optimize-autoloader
+
+# Copy application code
+COPY . .
+
+# Set environment variable for Composer
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
+CMD ["tail", "-f", "/dev/null"]
