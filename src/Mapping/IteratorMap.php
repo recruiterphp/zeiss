@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace Zeiss\Mapping;
 
-use ArrayIterator;
-use IteratorIterator;
-use Traversable;
-
-class IteratorMap extends IteratorIterator
+class IteratorMap extends \IteratorIterator
 {
     /**
      * @var callable[]
@@ -17,8 +13,8 @@ class IteratorMap extends IteratorIterator
 
     public function __construct(iterable $iterator)
     {
-        if (!$iterator instanceof Traversable) {
-            $iterator = new ArrayIterator($iterator);
+        if (!$iterator instanceof \Traversable) {
+            $iterator = new \ArrayIterator($iterator);
         }
 
         parent::__construct($iterator);
@@ -41,7 +37,7 @@ class IteratorMap extends IteratorIterator
         return array_reduce(
             $this->maps,
             fn ($item, callable $function) => call_user_func($function, $item),
-            parent::current()
+            parent::current(),
         );
     }
 }

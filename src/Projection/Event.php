@@ -1,8 +1,8 @@
 <?php
 
-namespace Zeiss\Projection;
+declare(strict_types=1);
 
-use DateTimeImmutable;
+namespace Zeiss\Projection;
 
 class Event implements NextEvent
 {
@@ -28,12 +28,12 @@ class Event implements NextEvent
         return $this->event['correlationIds'][$key] ?? null;
     }
 
-    public function emittedAt(): DateTimeImmutable
+    public function emittedAt(): \DateTimeImmutable
     {
         return $this->event['emittedAt'];
     }
 
-    public function receivedAt(): DateTimeImmutable
+    public function receivedAt(): \DateTimeImmutable
     {
         return $this->event['receivedAt'];
     }

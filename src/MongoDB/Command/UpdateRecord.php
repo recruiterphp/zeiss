@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zeiss\MongoDB\Command;
 
 use MongoDB\Database;
@@ -23,7 +25,7 @@ class UpdateRecord implements Command
         $collection->updateOne(
             ['_id' => $this->record->id()],
             ['$set' => $document],
-            ['upsert' => true]
+            ['upsert' => true],
         );
     }
 }
