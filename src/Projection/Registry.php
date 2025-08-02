@@ -1,29 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zeiss\Projection;
 
 use MongoDB\Collection;
 
 class Registry
 {
-    private const DEFAULT_OFFSET = -1;
-
-    /**
-     * @var Collection
-     */
-    private $registry;
+    private const int DEFAULT_OFFSET = -1;
 
     /**
      * @var int[]
      */
-    private $offsets = [];
+    private array $offsets = [];
 
     /**
      * Registry constructor.
      */
-    public function __construct(Collection $registry)
+    public function __construct(private readonly Collection $registry)
     {
-        $this->registry = $registry;
     }
 
     public function initialize(string $projectionName): int
@@ -50,11 +46,11 @@ class Registry
         $this->offsets[$projectionName] = $offset;
         $this->registry->updateOne(
             ['name' => $projectionName],
-            ['$set' => ['offset' => $this->offsets[$projectionName]]]
+            ['$set' => ['offset' => $this->offsets[$projectionName]]],
         );
     }
 
-    public function offset(string $projectionName)
+    public function offset(string $projectionName): int
     {
         return $this->offsets[$projectionName] ?? self::DEFAULT_OFFSET;
     }
@@ -69,7 +65,7 @@ class Registry
                 'background' => true,
                 'unique' => true,
                 'name' => 'name_1',
-            ]
+            ],
         );
     }
 }

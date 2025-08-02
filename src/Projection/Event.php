@@ -1,17 +1,16 @@
 <?php
 
-namespace Zeiss\Projection;
+declare(strict_types=1);
 
-use DateTimeImmutable;
+namespace Zeiss\Projection;
 
 class Event implements NextEvent
 {
-    /** @var array */
-    private $event;
-
-    public function __construct(array $event)
+    /**
+     * @param array<mixed> $event
+     */
+    public function __construct(private array $event)
     {
-        $this->event = $event;
     }
 
     public function type(): string
@@ -19,22 +18,22 @@ class Event implements NextEvent
         return $this->event['type'];
     }
 
-    public function fromPayload($key, $default = null)
+    public function fromPayload(string $key, $default = null)
     {
         return $this->event['payload'][$key] ?? $default;
     }
 
-    public function fromCorrelationIds($key)
+    public function fromCorrelationIds(string $key)
     {
         return $this->event['correlationIds'][$key] ?? null;
     }
 
-    public function emittedAt(): DateTimeImmutable
+    public function emittedAt(): \DateTimeImmutable
     {
         return $this->event['emittedAt'];
     }
 
-    public function receivedAt(): DateTimeImmutable
+    public function receivedAt(): \DateTimeImmutable
     {
         return $this->event['receivedAt'];
     }

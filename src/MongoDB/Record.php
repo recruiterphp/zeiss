@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zeiss\MongoDB;
 
 use MongoDB\BSON\ObjectId;
@@ -8,19 +10,10 @@ use Zeiss\Projection\Record as RecordInterface;
 class Record implements RecordInterface
 {
     /**
-     * @var array
+     * @param array<mixed> $record
      */
-    private $record;
-
-    /**
-     * @var string
-     */
-    private $collection;
-
-    public function __construct(array $record, string $collection)
+    public function __construct(private array $record, private readonly string $collection)
     {
-        $this->record = $record;
-        $this->collection = $collection;
         $this->ensureId();
     }
 
@@ -29,12 +22,15 @@ class Record implements RecordInterface
         return $this->record['_id'];
     }
 
-    public function get(string $key)
+    public function get(string $key): mixed
     {
         return $this->record[$key];
     }
 
-    public function set(string $key, $value): RecordInterface
+    /**
+     * @return $this
+     */
+    public function set(string $key, mixed $value): self
     {
         $this->record[$key] = $value;
 
@@ -46,12 +42,15 @@ class Record implements RecordInterface
         return $this->collection;
     }
 
-    public function export()
+    /**
+     * @return array<mixed>
+     */
+    public function export(): array
     {
         return $this->record;
     }
 
-    private function ensureId()
+    private function ensureId(): void
     {
         if (!isset($this->record['_id'])) {
             $this->record['_id'] = new ObjectId();
