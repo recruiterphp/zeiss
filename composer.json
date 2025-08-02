@@ -1,19 +1,32 @@
 {
     "name": "recruiterphp/zeiss",
     "description": "Open source PHP library for projecting domain events",
-    "type": "library",
     "license": "MIT",
+    "type": "library",
     "authors": [
         {
             "name": "Easy Welfare - Development Team",
             "email": "dev@easywelfare.com"
         },
-
-            {
-      "name": "Contributors",
-      "homepage": "https://github.com/recruiterphp/zeiss/graphs/contributors"
-    }
+        {
+            "name": "Contributors",
+            "homepage": "https://github.com/recruiterphp/zeiss/graphs/contributors"
+        }
     ],
+    "require": {
+        "php": "^8.4",
+        "ext-mongodb": "*",
+        "mongodb/mongodb": "^2.1",
+        "psr/log": "^3.0",
+        "recruiterphp/geezer": "^6.0"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.47",
+        "friendsofphp/php-cs-fixer": "^3.85",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^12.3",
+        "rector/rector": "^2.1"
+    },
     "autoload": {
         "psr-4": {
             "Zeiss\\": "src/"
@@ -24,24 +37,10 @@
             "Zeiss\\Tests\\": "tests/"
         }
     },
-    "require": {
-        "php": "^8.4",
-        "ext-mongodb": "*",
-        "mongodb/mongodb": "^2.1",
-        "recruiterphp/geezer": "^6.0",
-        "psr/log": "^3.0"
-    },
-    "require-dev": {
-    "ergebnis/composer-normalize": "^2.47",
-    "friendsofphp/php-cs-fixer": "^3.85",
-    "phpstan/phpstan": "^2.1",
-    "phpunit/phpunit": "^12.3",
-    "rector/rector": "^2.1"
-    },
-  "config": {
-    "allow-plugins": {
-      "ergebnis/composer-normalize": true,
-      "sort-packages": true
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true,
+            "sort-packages": true
+        }
     }
-  }
 }
