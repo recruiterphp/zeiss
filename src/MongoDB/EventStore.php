@@ -12,17 +12,13 @@ use Zeiss\Projection\NextEvent;
 
 class EventStore implements EventStoreInterface
 {
-    /** @var Collection */
-    private $events;
-
-    private const DATES = [
+    private const array DATES = [
         'receivedAt',
         'emittedAt',
     ];
 
-    public function __construct(Collection $events)
+    public function __construct(private readonly Collection $events)
     {
-        $this->events = $events;
     }
 
     /**
@@ -54,6 +50,9 @@ class EventStore implements EventStoreInterface
         return (int) $document['__committed_offset__'];
     }
 
+    /**
+     * @param array<mixed> $document
+     */
     private function boxDates(array $document): array
     {
         foreach (self::DATES as $key) {

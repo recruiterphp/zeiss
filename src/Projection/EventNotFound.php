@@ -4,12 +4,8 @@ namespace Zeiss\Projection;
 
 class EventNotFound implements NextEvent
 {
-    /** @var int */
-    private $offset;
-
-    public function __construct(int $offset)
+    public function __construct(private readonly int $offset)
     {
-        $this->offset = $offset;
     }
 
     public function offset(): int

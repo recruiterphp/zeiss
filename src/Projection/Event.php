@@ -6,12 +6,11 @@ use DateTimeImmutable;
 
 class Event implements NextEvent
 {
-    /** @var array */
-    private $event;
-
-    public function __construct(array $event)
+    /**
+     * @param array<mixed> $event
+     */
+    public function __construct(private array $event)
     {
-        $this->event = $event;
     }
 
     public function type(): string
@@ -19,12 +18,12 @@ class Event implements NextEvent
         return $this->event['type'];
     }
 
-    public function fromPayload($key, $default = null)
+    public function fromPayload(string $key, $default = null)
     {
         return $this->event['payload'][$key] ?? $default;
     }
 
-    public function fromCorrelationIds($key)
+    public function fromCorrelationIds(string $key)
     {
         return $this->event['correlationIds'][$key] ?? null;
     }

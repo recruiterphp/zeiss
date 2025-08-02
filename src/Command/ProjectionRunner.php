@@ -18,36 +18,8 @@ use Zeiss\Projection\Runner;
 
 class ProjectionRunner implements RobustCommand
 {
-    /**
-     * @var Runner
-     */
-    private $runner;
-
-    /**
-     * @var LeadershipStrategy
-     */
-    private $leadershipStrategy;
-
-    /**
-     * @var WaitStrategy
-     */
-    private $waitStrategy;
-
-    /**
-     * @var string
-     */
-    private $projectionName;
-
-    public function __construct(
-        Runner $runner,
-        LeadershipStrategy $leadershipStrategy,
-        WaitStrategy $waitStrategy,
-        string $projectionName
-    ) {
-        $this->runner = $runner;
-        $this->leadershipStrategy = $leadershipStrategy;
-        $this->waitStrategy = $waitStrategy;
-        $this->projectionName = $projectionName;
+    public function __construct(private readonly Runner $runner, private readonly LeadershipStrategy $leadershipStrategy, private readonly WaitStrategy $waitStrategy, private readonly string $projectionName)
+    {
     }
 
     public static function forProjection(
@@ -132,5 +104,11 @@ class ProjectionRunner implements RobustCommand
     public function shutdown(?Throwable $t = null): bool
     {
         return true;
+    }
+
+    public function hasTerminated(): bool
+    {
+        // A projection never stops
+        return false;
     }
 }

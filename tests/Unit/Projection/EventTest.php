@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeiss\Tests\Unit\Event;
+namespace Zeiss\Tests\Unit\Projection;
 
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;

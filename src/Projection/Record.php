@@ -5,14 +5,9 @@ namespace Zeiss\Projection;
 interface Record
 {
     /**
-     * @param mixed $value
-     *
      * @return $this
      */
-    public function set(string $key, $value): self;
+    public function set(string $key, mixed $value): self;
 
-    /**
-     * @return mixed
-     */
-    public function get(string $key);
+    public function get(string $key): mixed;
 }
