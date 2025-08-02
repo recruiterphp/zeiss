@@ -17,7 +17,6 @@ class IteratorMap extends IteratorIterator
 
     public function __construct(iterable $iterator)
     {
-        // if it's not a traversable it must be an array
         if (!$iterator instanceof Traversable) {
             $iterator = new ArrayIterator($iterator);
         }
@@ -37,7 +36,7 @@ class IteratorMap extends IteratorIterator
         return $this;
     }
 
-    public function current()
+    public function current(): mixed
     {
         return array_reduce(
             $this->maps,

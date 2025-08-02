@@ -12,19 +12,11 @@ use Zeiss\Projection\Projection as ProjectionInterface;
 
 abstract class Projection implements ProjectionInterface
 {
-    /** @var EventStore */
-    protected $eventStore;
-
-    /** @var Database */
-    protected $projectionDatabase;
-
     /**
      * Projection constructor.
      */
-    public function __construct(EventStore $eventStore, Database $projectionDatabase)
+    public function __construct(protected EventStore $eventStore, protected Database $projectionDatabase)
     {
-        $this->eventStore = $eventStore;
-        $this->projectionDatabase = $projectionDatabase;
     }
 
     protected function skip(): Command

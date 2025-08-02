@@ -5,22 +5,10 @@ namespace Zeiss\Projection;
 class Runner
 {
     /**
-     * @var Projection
-     */
-    private $projection;
-
-    /**
-     * @var Registry
-     */
-    private $registry;
-
-    /**
      * Runner constructor.
      */
-    public function __construct(Projection $projection, Registry $registry)
+    public function __construct(private readonly Projection $projection, private readonly Registry $registry)
     {
-        $this->projection = $projection;
-        $this->registry = $registry;
     }
 
     public function initialize(): void
