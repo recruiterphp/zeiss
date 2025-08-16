@@ -14,7 +14,7 @@
         "ext-mongodb": "*",
         "mongodb/mongodb": "^2.1",
         "psr/log": "^3.0",
-        "recruiterphp/geezer": "^6.0"
+        "recruiterphp/geezer": "^7.0"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.47",
