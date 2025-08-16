@@ -5,10 +5,6 @@
     "type": "library",
     "authors": [
         {
-            "name": "Easy Welfare - Development Team",
-            "email": "dev@easywelfare.com"
-        },
-        {
             "name": "Contributors",
             "homepage": "https://github.com/recruiterphp/zeiss/graphs/contributors"
         }
